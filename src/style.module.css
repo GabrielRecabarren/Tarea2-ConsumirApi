@@ -6,14 +6,18 @@
 
 
 
-body {
-   
+body{   
     display: flex;
     width: 100%;
     text-align: center;
     justify-content: center;
     align-items: center;
     animation: animateBg 20s ease-in-out infinite;
+}
+
+
+h1{
+    margin-bottom: 70px;
 }
 
 

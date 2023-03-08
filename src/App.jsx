@@ -11,7 +11,7 @@ function App() {
   const [characters, setCharacters] = useState([]); // Estado que almacenará los personajes obtenidos de la API
   const [searchTerm, setSearchTerm] = useState(""); // Estado que almacenará el término de búsqueda ingresado por el usuario
   const [page, setPage] = useState(1); // Estado que almacenará el número de página actual de la API a la que se está haciendo la petición
-  const [loading, setLoading] = useState(false); // Estado que almacenará si se están cargando más personajes o no
+  const [loading, setLoading] = useState(true); // Estado que almacenará si se están cargando más personajes o no
   const [error, setError] = useState(false); // Estado que almacenará si hubo un error al obtener los personajes de la API
   const [filteredTerm, setFilteredTerm] = useState(""); // Estado que almacenará el término de búsqueda filtrado por el estado de filteredTerm
   const wrapperRef = useRef(null); // Referencia al contenedor que contiene la lista de personajes
@@ -19,6 +19,7 @@ function App() {
   const [playing, setPlaying] = useState(false); // Estado que almacenará si el audio se está reproduciendo o no
   const [audio] = useState(new Audio(openingTheme)); // Estado que almacenará el objeto de audio que se reproducirá en el componente
   useEffect(() => {
+    setTimeout(()=>
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`) // Realizamos una petición GET a la API de Rick and Morty utilizando el número de página actual
       .then((res) => {
@@ -30,9 +31,9 @@ function App() {
       })
       .catch((err) => {
         setError(true); // Indicamos que hubo un error al obtener los personajes de la API
-        console.log(err);
+        console.log("Hay un Error", err);
         setLoading(false); // Indicamos que ya no se están cargando más personajes
-      });
+      }), 5000);
   }, [page]); // Este efecto se ejecutará cada vez que el valor de la variable page cambie
 
   useEffect(() => {
@@ -86,36 +87,38 @@ function App() {
   return (
     <div ref={wrapperRef}>
       
+      
             {/* StyledComponent Btn para reproducir/pausar la música */}
-
       <MusicBtnStyled
       onClick={() => setPlaying(!playing)}>
       {playing ? "Pause" : "Play"}  
       
-      </MusicBtnStyled>
-      
-        
-      
-      
-      
+      </MusicBtnStyled>   
       {/* Renderiza el componente Header */}
-      <Header
+      
+
+      {!loading? <Header
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         searchTerm={searchTerm}
-      />
+      />: <h1>Cargando Personajes...</h1>}
+      
+     
+      {loading ? <Loading/> :filteredCharacters.length > 0 ? (
+       
 
-      {filteredCharacters.length > 0 ? (
         <CharacterList
           characters={filteredCharacters}
           filteredTerm={filteredTerm}
         />
       ) : (
-        <p>
-          No se encontraron personajes con el término de búsqueda "{searchTerm}
-          ".
-        </p>
-      )}
+        <h1>No se encontraron personajes con el término de búsqueda "{searchTerm}
+        ".</h1>
+        
+
+      )} 
+
+      
     </div>
   );
 }

@@ -19,7 +19,7 @@ function App() {
   const [playing, setPlaying] = useState(false); // Estado que almacenará si el audio se está reproduciendo o no
   const [audio] = useState(new Audio(openingTheme)); // Estado que almacenará el objeto de audio que se reproducirá en el componente
   useEffect(() => {
-    setTimeout(()=>
+    
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`) // Realizamos una petición GET a la API de Rick and Morty utilizando el número de página actual
       .then((res) => {
@@ -33,7 +33,7 @@ function App() {
         setError(true); // Indicamos que hubo un error al obtener los personajes de la API
         console.log("Hay un Error", err);
         setLoading(false); // Indicamos que ya no se están cargando más personajes
-      }), 5000);
+      })
   }, [page]); // Este efecto se ejecutará cada vez que el valor de la variable page cambie
 
   useEffect(() => {
@@ -63,6 +63,7 @@ function App() {
   const handleScroll = () => {
     if (
       !loading &&
+      wrapperRef.current &&
       wrapperRef.current.getBoundingClientRect().bottom <= window.innerHeight
     ) {
       setPage((prevPage) => prevPage + 1);

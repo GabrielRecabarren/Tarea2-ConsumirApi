@@ -5,7 +5,7 @@ import s from "./style.module.css"; // Importamos los estilos del componente
 import Header from "./components/header/Header"; // Importamos el componente Header
 import Loading from "./components/loading/Loading";
 import MusicBtnStyled from "./components/musicBtnStyled/MusicBtnStyled";
-import openingTheme from "./assets/audio/openingTheme.mp3"
+import openingTheme from "./assets/audio/openingTheme.mp3";
 
 function App() {
   const [characters, setCharacters] = useState([]); // Estado que almacenará los personajes obtenidos de la API
@@ -19,7 +19,7 @@ function App() {
   const [playing, setPlaying] = useState(false); // Estado que almacenará si el audio se está reproduciendo o no
   const [audio] = useState(new Audio(openingTheme)); // Estado que almacenará el objeto de audio que se reproducirá en el componente
   useEffect(() => {
-    
+   
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`) // Realizamos una petición GET a la API de Rick and Morty utilizando el número de página actual
       .then((res) => {
@@ -27,14 +27,16 @@ function App() {
           ...prevCharacters,
           ...res.data.results,
         ]); // Agregamos los personajes obtenidos de la API al estado de characters
-        setLoading(false); // Indicamos que ya no se están cargando más personajes
+        setTimeout(()=>{
+          setLoading(false),5000}) // Indicamos que ya no se están cargando más personajes
+                    
       })
       .catch((err) => {
         setError(true); // Indicamos que hubo un error al obtener los personajes de la API
         console.log("Hay un Error", err);
         setLoading(false); // Indicamos que ya no se están cargando más personajes
-      })
-  }, [page]); // Este efecto se ejecutará cada vez que el valor de la variable page cambie
+      });
+  }, [page, wrapperRef]); // Este efecto se ejecutará cada vez que el valor de la variable page cambie
 
   useEffect(() => {
     playing ? (audio.loop = true && audio.play()) : audio.pause(); // Si el audio se está reproduciendo, lo reproducimos en loop. Si no, lo pausamos.
@@ -66,7 +68,10 @@ function App() {
       wrapperRef.current &&
       wrapperRef.current.getBoundingClientRect().bottom <= window.innerHeight
     ) {
-      setPage((prevPage) => prevPage + 1);
+      showLoading();
+      setTimeout(()=>{
+        setPage((prevPage) => prevPage + 1)
+      , 3000})
     }
   };
 
@@ -79,47 +84,38 @@ function App() {
   //Loading Page
   const showLoading = () => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
+    <Loading></Loading>
+    setTimeout(() => {}, 5000);
+    setLoading(false);
   };
 
   // Renderiza los componentes de la aplicación
   return (
-    <div ref={wrapperRef}>
-      
-      
-            {/* StyledComponent Btn para reproducir/pausar la música */}
-      <MusicBtnStyled
-      onClick={() => setPlaying(!playing)}>
-      {playing ? "Pause" : "Play"}  
-      
-      </MusicBtnStyled>   
+    <div className={s.container} ref={wrapperRef}>
+      {/* StyledComponent Btn para reproducir/pausar la música */}
+      <MusicBtnStyled onClick={() => setPlaying(!playing)}>
+        {playing ? "Pause" : "Play"}
+      </MusicBtnStyled>
       {/* Renderiza el componente Header */}
-      
 
-      {!loading? <Header
+      <Header
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         searchTerm={searchTerm}
-      />: <h1>Cargando Personajes...</h1>}
-      
-     
-      {loading ? <Loading/> :filteredCharacters.length > 0 ? (
-       
+      />
 
+      {loading ? (
+        <Loading />
+      ) : filteredCharacters.length > 0 ? (
         <CharacterList
           characters={filteredCharacters}
           filteredTerm={filteredTerm}
         />
       ) : (
-        <h1>No se encontraron personajes con el término de búsqueda "{searchTerm}
-        ".</h1>
-        
-
-      )} 
-
-      
+        <h1 className={s.noFound}>
+          No existen personajes para la buqueda {searchTerm}
+        </h1>
+      )}
     </div>
   );
 }

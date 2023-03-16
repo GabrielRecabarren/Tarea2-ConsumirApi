@@ -12,7 +12,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(""); // Estado que almacenará el término de búsqueda ingresado por el usuario
   const [page, setPage] = useState(1); // Estado que almacenará el número de página actual de la API a la que se está haciendo la petición
   const [loading, setLoading] = useState(true); // Estado que almacenará si se están cargando más personajes o no
-  const [error, setError] = useState(false); // Estado que almacenará si hubo un error al obtener los personajes de la API
+  const [_error, setError] = useState(false); // Estado que almacenará si hubo un error al obtener los personajes de la API
   const [filteredTerm, setFilteredTerm] = useState(""); // Estado que almacenará el término de búsqueda filtrado por el estado de filteredTerm
   const wrapperRef = useRef(null); // Referencia al contenedor que contiene la lista de personajes
 

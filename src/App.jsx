@@ -6,6 +6,7 @@ import Header from "./components/header/Header"; // Importamos el componente Hea
 import Loading from "./components/loading/Loading";
 import MusicBtnStyled from "./components/musicBtnStyled/MusicBtnStyled";
 import openingTheme from "./assets/audio/openingTheme.mp3";
+import fetchCharacters from "./components/fetchCharacters/fetchCharacters";
 
 function App() {
   const [characters, setCharacters] = useState([]); // Estado que almacenará los personajes obtenidos de la API
@@ -18,8 +19,15 @@ function App() {
 
   const [playing, setPlaying] = useState(false); // Estado que almacenará si el audio se está reproduciendo o no
   const [audio] = useState(new Audio(openingTheme)); // Estado que almacenará el objeto de audio que se reproducirá en el componente
+
+  const fetchCharacters = () => {
+
+  }
+
+
+
   useEffect(() => {
-   
+    console.log("useE")
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`) // Realizamos una petición GET a la API de Rick and Morty utilizando el número de página actual
       .then((res) => {
@@ -27,10 +35,10 @@ function App() {
           ...prevCharacters,
           ...res.data.results,
         ]); // Agregamos los personajes obtenidos de la API al estado de characters
-        setTimeout(()=>{
-          setLoading(false),5000}) // Indicamos que ya no se están cargando más personajes
-                    
-      })
+        console.log("false")
+        setLoading(false);
+      }) // Indicamos que ya no se están cargando más personajes
+
       .catch((err) => {
         setError(true); // Indicamos que hubo un error al obtener los personajes de la API
         console.log("Hay un Error", err);
@@ -48,10 +56,14 @@ function App() {
   };
   // Función que se ejecuta cada vez que se cambia el valor del input
   const handleChange = (event) => {
+    console.log("hchn")
     setSearchTerm(event.target.value); // Actualiza el estado con el valor del input
+
+
   };
   // Función que se ejecuta cuando se envía el formulario
   const handleSubmit = (event) => {
+
     event.preventDefault(); // Evita que se recargue la página al enviar el formulario
 
     handleSearch(searchTerm); // Ejecuta la función que recibe como prop para realizar la búsqueda
@@ -68,10 +80,7 @@ function App() {
       wrapperRef.current &&
       wrapperRef.current.getBoundingClientRect().bottom <= window.innerHeight
     ) {
-      showLoading();
-      setTimeout(()=>{
-        setPage((prevPage) => prevPage + 1)
-      , 3000})
+      setPage((prevPage) => prevPage + 1)
     }
   };
 
@@ -81,17 +90,9 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  //Loading Page
-  const showLoading = () => {
-    setLoading(true);
-    <Loading></Loading>
-    setTimeout(() => {}, 5000);
-    setLoading(false);
-  };
-
   // Renderiza los componentes de la aplicación
   return (
-    <div className={s.container} ref={wrapperRef}>
+    <div className={s.container} ref={wrapperRef} >
       {/* StyledComponent Btn para reproducir/pausar la música */}
       <MusicBtnStyled onClick={() => setPlaying(!playing)}>
         {playing ? "Pause" : "Play"}
@@ -113,11 +114,11 @@ function App() {
         />
       ) : (
         <h1 className={s.noFound}>
-          No existen personajes para la buqueda {searchTerm}
+          No existen personajes para la búsqueda {searchTerm}
         </h1>
       )}
     </div>
   );
-}
 
+};
 export default App;

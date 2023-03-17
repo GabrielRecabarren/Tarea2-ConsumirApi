@@ -10,7 +10,7 @@ background: transparent ;
 font-size: large;
 font-weight: bold;
 transition: .5s ease-in-out ;
-border-radius: 25px;
+border-radius: 100px;
 
   &:hover {
     scale: 1.05;
@@ -18,6 +18,13 @@ border-radius: 25px;
     #f0f 0 0 40px, 
     #f0f 0 0 60px;
     transition: .5s ease-in-out ;
+  }
+  @media (max-width: 400px) {
+    font-size: small;
+  
+   
+    
+    }
   }
   
 `;

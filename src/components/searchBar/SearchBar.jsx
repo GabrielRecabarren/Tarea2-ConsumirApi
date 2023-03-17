@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react";
 import s from "./style.module.css";
+import Debounce from "../debounce/Debounce";
 
 function SearchBar({ handleSubmit, handleChange, searchTerm }) {
+  
   return (
     <form className={s.searchBar} onSubmit={handleSubmit}>
       <input

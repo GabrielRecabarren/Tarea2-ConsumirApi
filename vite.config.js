@@ -40,7 +40,7 @@ export default defineConfig({
     // pre-carga general del código antes de visitarse
     modulePreload: true,
     // Podemos específicar otro directorio de salida
-    outDir: "build",
+    outDir: "dist",
     // Habilitar el inspector de recomendaciones
     devCode: true,
     // Habilitar el inspector de recomendaciones y errores

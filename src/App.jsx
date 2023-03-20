@@ -88,7 +88,7 @@ function App() {
     <div className={s.container} ref={wrapperRef} >
       {/* StyledComponent Btn para reproducir/pausar la música */}
       <MusicBtnStyled onClick={() => setPlaying(!playing)}>
-        {playing ? "Pause" : "Play"}
+        {playing ? "||" : "Play"}
       </MusicBtnStyled>
       {/* Renderiza el componente Header */}
 

@@ -8,8 +8,7 @@ export default defineConfig({
   // Me permite modificar el puerto del servidor de desarrollo.
   server: {
     port: 3030,
-    //habilitar el servidor local SSL
-    https: true 
+    
   },
   // Me permite modificar el puerto del servidor pre-productivo que me ofrece Vite, luego de correr el build.
   preview: {
@@ -24,11 +23,7 @@ export default defineConfig({
     // Habilitar un trabajo en conjunto con Babel, para el manejo correcto del versionado de tu JS moderno a la versión que necesite el navegador.
     babel: {
       presets: ["@babel/preset-env", "@babel/preset-react"],
-    },
-    // Habilitar la aceleración de compilación de tu código de TS hacia JS.
-    /*typescript: {
-      tsconfig: "./tsconfig.json",
-    },*/
+    },    
     // Habilitar una caché para optimizar el compilado de los recursos que caen en dist.
     cache: true,
     // Habilitar la opción de compresión optimizada para minimizar el tamaño de los archivos generados.

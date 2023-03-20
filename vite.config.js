@@ -8,6 +8,8 @@ export default defineConfig({
   // Me permite modificar el puerto del servidor de desarrollo.
   server: {
     port: 3030,
+    //habilitar el servidor local SSL
+    https: true 
   },
   // Me permite modificar el puerto del servidor pre-productivo que me ofrece Vite, luego de correr el build.
   preview: {
@@ -17,6 +19,8 @@ export default defineConfig({
   build: {
     // Acelerar el proceso de compilación de los archivos cuando generas el build: .js,.jsx,.css,etc...
     incremental: true,
+    //habilitar el modo watch y que el build se actualice automáticamente cada vez que se detecte un cambio
+    watch: true, //AGREGADO
     // Habilitar un trabajo en conjunto con Babel, para el manejo correcto del versionado de tu JS moderno a la versión que necesite el navegador.
     babel: {
       presets: ["@babel/preset-env", "@babel/preset-react"],

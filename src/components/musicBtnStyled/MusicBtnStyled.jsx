@@ -11,6 +11,7 @@ font-size: large;
 font-weight: bold;
 transition: .5s ease-in-out ;
 border-radius: 100px;
+z-index: 999;
 
   &:hover {
     scale: 1.05;

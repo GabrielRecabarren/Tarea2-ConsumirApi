@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Suspense, lazy } from "react"; // Importamos los hooks que utilizaremos en el componente
+import React, { useState, useEffect, useRef } from "react"; // Importamos los hooks que utilizaremos en el componente
 import axios from "axios"; // Importamos axios para realizar las peticiones a la API
 import CharacterList from "./components/charactersList/CharacterList";
 import s from "./style.module.css"; // Importamos los estilos del componente
@@ -6,7 +6,6 @@ import Header from "./components/header/Header"; // Importamos el componente Hea
 import Loading from "./components/loading/Loading";
 import MusicBtnStyled from "./components/musicBtnStyled/MusicBtnStyled";
 import openingTheme from "./assets/audio/openingTheme.mp3";
-import fetchCharacters from "./components/fetchCharacters/fetchCharacters";
 
 function App() {
   const [characters, setCharacters] = useState([]); // Estado que almacenará los personajes obtenidos de la API
@@ -20,14 +19,9 @@ function App() {
   const [playing, setPlaying] = useState(false); // Estado que almacenará si el audio se está reproduciendo o no
   const [audio] = useState(new Audio(openingTheme)); // Estado que almacenará el objeto de audio que se reproducirá en el componente
 
-  const fetchCharacters = () => {
-
-  }
-
 
 
   useEffect(() => {
-    console.log("useE")
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`) // Realizamos una petición GET a la API de Rick and Morty utilizando el número de página actual
       .then((res) => {
@@ -35,7 +29,6 @@ function App() {
           ...prevCharacters,
           ...res.data.results,
         ]); // Agregamos los personajes obtenidos de la API al estado de characters
-        console.log("false")
         setLoading(false);
       }) // Indicamos que ya no se están cargando más personajes
 
@@ -54,18 +47,18 @@ function App() {
     // Función que se encarga de actualizar el estado de searchTerm cada vez que el usuario realiza una búsqueda
     setSearchTerm(searchTerm);
   };
+
+
   // Función que se ejecuta cada vez que se cambia el valor del input
   const handleChange = (event) => {
-    console.log("hchn")
-    setSearchTerm(event.target.value); // Actualiza el estado con el valor del input
+    // Actualiza el estado con el valor del input debounceado
+    setSearchTerm(event.target.value);
 
 
   };
   // Función que se ejecuta cuando se envía el formulario
   const handleSubmit = (event) => {
-
     event.preventDefault(); // Evita que se recargue la página al enviar el formulario
-
     handleSearch(searchTerm); // Ejecuta la función que recibe como prop para realizar la búsqueda
   };
   // Filtra la lista de personajes para mostrar solo aquellos que contengan el término de búsqueda (ignorando mayúsculas/minúsculas)

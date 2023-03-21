@@ -5,7 +5,7 @@ const Loading = () => {
   return (
   
       <div className={s.box}>
-        <img src="src/components/loading/loadingImg.png" alt="" />
+        <img src="src/components/loading/img/loadingImg.png" alt="" />
       </div>
    
   );

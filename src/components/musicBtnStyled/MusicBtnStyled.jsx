@@ -22,6 +22,9 @@ z-index: 999;
   }
   @media (max-width: 400px) {
     font-size: small;
+    border-radius:100%;
+    margin:5px;
+    padding:5px
   
    
     

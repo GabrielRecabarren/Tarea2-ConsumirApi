@@ -21,22 +21,22 @@ function App() {
 
 
 
-  useEffect(() => {
+  useEffect(() => {    
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`) // Realizamos una petición GET a la API de Rick and Morty utilizando el número de página actual
       .then((res) => {
         setCharacters((prevCharacters) => [
           ...prevCharacters,
           ...res.data.results,
-        ]); // Agregamos los personajes obtenidos de la API al estado de characters
-        setLoading(false);
-      }) // Indicamos que ya no se están cargando más personajes
-
+        ]); // Agregamos los personajes obtenidos de la API al estado de characters       
+        
+      }) 
       .catch((err) => {
         setError(true); // Indicamos que hubo un error al obtener los personajes de la API
         console.log("Hay un Error", err);
         setLoading(false); // Indicamos que ya no se están cargando más personajes
       });
+      setTimeout(()=>setLoading(false),1000);// Indicamos que ya no se están cargando más personajes
   }, [page, wrapperRef]); // Este efecto se ejecutará cada vez que el valor de la variable page cambie
 
   useEffect(() => {

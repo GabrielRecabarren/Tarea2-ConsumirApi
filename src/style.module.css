@@ -14,6 +14,7 @@ body{
     align-items: center;
     animation: animateBg 20s ease-in-out infinite;
 }
+
 .container{
     position: absolute;
     width: 100%;
@@ -34,21 +35,21 @@ h1{
 
 @keyframes animateBg {
     0% {
-        background-color: #ff0;
+        background: rgb(255, 255, 2);
     }
 
     25% {
-        background-color: #f0f;
+        background: rgba(255, 0, 255, 0.89);
     }
     50%{
-        background-color: rgb(252, 8, 8);
+        background: rgba(252, 8, 8, 0.698);
     }
 
     75% {
-        background-color: rgb(8, 243, 8);
+        background: rgb(8, 243, 8);
     }
 
     100% {
-        background-color: #ff0;
+        background: rgb(255, 255, 0);
     }
 }

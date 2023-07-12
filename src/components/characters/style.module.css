@@ -6,7 +6,9 @@
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  background: #ff00fb;
+  background: rgba(241, 241, 241, 0.476);
+  -webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(100px);
 }
 
 h1{
